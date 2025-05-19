@@ -25,6 +25,7 @@ function playSound(name) {
 
 function userClick(){
     $(".btn").click(function(){
+        if(!started) return;
         let colorClicked = $(this).attr("id");
         userChosen.push(colorClicked);
 
@@ -69,9 +70,24 @@ function checkAnswer(currentLevel) {
             }, 1000);
         }
     } else{
-        console.log("WRONG!")
+        console.log("WRONG!");
         playSound("wrong");
+        $("body").addClass("game-over");
+        setTimeout(() => {
+            $("body").removeClass("game-over")
+        }, 200);
+
+        $("#level-title").text("Game Over, Press A to Restart");
+
+        startOver();
     }
+}
+
+function startOver(){
+    level = 0;
+    started = false;
+    gamePattern.length = 0;
+    userChosen.length = 0;
 }
 
 $(document).ready(userClick)
