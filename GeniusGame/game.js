@@ -30,6 +30,7 @@ function userClick(){
 
         playSound(colorClicked);
         animatePress(colorClicked);
+        checkAnswer(colorClicked);
     })
 }
 
@@ -54,6 +55,24 @@ $(document).on("keydown", function(event) {
         started = true;
     }
 });
+
+// ======== VERIFICAR RESPOSTA =========
+
+function checkAnswer(currentLevel) {
+    let currentIndex = userChosen.length - 1;
+    if(currentLevel === gamePattern[currentIndex]){
+        if(userChosen.length === gamePattern.length){
+            console.log("SUCESSO!")
+            userChosen.length = 0;
+            setTimeout(() => {
+                nextSequence();
+            }, 1000);
+        }
+    } else{
+        console.log("WRONG!")
+        playSound("wrong");
+    }
+}
 
 $(document).ready(userClick)
 
