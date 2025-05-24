@@ -5,6 +5,7 @@ const gamePattern = [];
 const userChosen = [];
 let started = false;
 let level = 0;
+let currentVolume = 1.0;
 
 
 // ======== FUNCOES UTILITARIAS =========
@@ -17,7 +18,9 @@ function animatePress(currentColor){
 }
 
 function playSound(name) {
-    new Audio("sounds/" + name + ".mp3").play();
+    let audio = new Audio("sounds/" + name + ".mp3");
+    audio.volume = currentVolume;
+    audio.play();
 }
 
 
@@ -90,6 +93,11 @@ function startOver(){
     userChosen.length = 0;
 }
 
-$(document).ready(userClick)
+$(document).ready(function(){
+    userClick();
+    $("#volumeRange").on("input", function(){
+        currentVolume = Number($(this).val());
+    });
+});
 
 
